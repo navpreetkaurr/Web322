@@ -30,7 +30,7 @@ module.exports.getAllEmployees=function(){
 }
 
 // function to get all manager's list//
-module.exports.getManagers =function() {
+/*module.exports.getManagers =function() {
     var Manager=[];
     return new Promise((resolve, reject)=> {
         for(let i=0;i<employees.length;i++){
@@ -44,7 +44,7 @@ module.exports.getManagers =function() {
         resolve(Manager);
     })
 }
-
+*/
 // function to get all department's list//
 module.exports.getDepartments = function() {
     return new Promise((resolve,reject)=>{
@@ -86,7 +86,7 @@ module.exports.getEmployeesByNum = function(num){
     });
 }
 
-exports.getEmployeesByStatus = function(status){
+module.exports.getEmployeesByStatus = function(status){
     return new Promise((resolve, reject) => {
         let filteredEmployees = employees.filter(employees => employees.status == status);
         resolve(filteredEmployees);
@@ -95,7 +95,7 @@ exports.getEmployeesByStatus = function(status){
     });
 }
 
-exports.getEmployeesByDepartment = function(department){
+module.exports.getEmployeesByDepartment = function(department){
     return new Promise((resolve, reject) => {
         let filteredEmployees = employees.filter(employees => employees.department == department);
         resolve(filteredEmployees);
@@ -104,11 +104,24 @@ exports.getEmployeesByDepartment = function(department){
     });
 }
 
-exports.getEmployeesByManager = function(manager){
+module.exports.getEmployeesByManager = function(manager){
     return new Promise((resolve, reject) => {
         let filteredEmployees = employees.filter(employees => employees.employeeManagerNum == manager);
         resolve(filteredEmployees);
         if(filteredEmployees.length == 0)
         reject("no results returned");
+    });
+}
+module.exports.updateEmployee = function(employeeData){
+    return new Promise((resolve, reject) => {
+        employeeData.isManager = (employeeData.isManager) ? true : false;
+        return new Promise((resolve, reject) => {
+            employees.forEach(employee => {
+                if (employee.employeeNum == employeeData.employeeNum) {
+                    employees.splice(employeeData.employeeNum - 1, 1, employeeData);
+                }
+            });
+            resolve();
+        });
     });
 }
