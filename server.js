@@ -3,8 +3,8 @@
 * I declare that this assignment is my own work in accordance with Seneca Academic Policy. 
 * No part of this assignment has been copied manually or electronically from any other source
 * (including web sites) or distributed to other students.
-* Name: Navpreet Kaur Student ID: 148332182 Date: 
-* Online (Heroku) URL: 
+* Name: Navpreet Kaur Student ID: 148332182 Date: 4 March 2020
+* Online (Heroku) URL: https://pure-harbor-21304.herokuapp.com/
 ********************************************************************************/ 
 
 var dataFile = require("./data-service.js");
@@ -84,13 +84,13 @@ app.get("/about", function(req,res){
   //---------Get route to get images---------//
 app.get("/images", (req, res) => {
     fs.readdir("./public/images/uploaded", function(err, imageFile){
-        res.json(imageFile);
+        res.render("images",{images: imageFile});
     })
 });
 
 //---------set route to listen employees---------//
 app.use(express.static('public')); 
-app.get("/employees", function(req,res){
+/*app.get("/employees", function(req,res){
     dataFile.getAllEmployees()
     .then(function(data) {
         res.json(data);

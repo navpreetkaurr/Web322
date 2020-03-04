@@ -79,10 +79,21 @@ module.exports.addEmployee = function(employeeData){
 
 module.exports.getEmployeesByNum = function(num){
     return new Promise((resolve, reject) => {
-        let filteredEmployees = employees.filter(employees => employees.employeeNum == num);
-        resolve(filteredEmployees);
-        if(filteredEmployees.length == 0)
+        let E;
+        for(let i=0;i<employees.length;i++){
+            if(employees[i].employeeNum==num){
+                E=employees[i];
+                i=employees.length;
+            }
+        }
+
+      /*  let filteredEmployees = employees.filter(employees => employees.employeeNum == num);
+        resolve(filteredEmployees);*/
+        if(E.length == 0)
+        {
         reject("no results returned");
+        }
+        resolve(E);
     });
 }
 
